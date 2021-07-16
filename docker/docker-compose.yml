@@ -1,0 +1,26 @@
+version: "3.0"
+
+services:
+  ftx-bot:
+    container_name: ftx-bot
+    depends_on:
+      - ftx-db
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: ftx-bot:latest
+    hostname: ftx-bot
+    ports:
+      - "80:80"
+    restart: always
+  ftx-db:
+    container_name: ftx-db
+    image: postgres:13.3
+    volumes:
+      - ./dbData:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
