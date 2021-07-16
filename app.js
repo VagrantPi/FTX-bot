@@ -1,9 +1,11 @@
 const Utils = require('./lib/Utils');
 const HttpAgent = require('./lib/HttpAgent');
+const LoggerAdapter = require('./lib/LoggerAdapter.js')
 
 const main = async () => {
   const config = await Utils.readConfig()
   const httpAgent = new HttpAgent()
+  const log = new LoggerAdapter()
 
   const intervalTime = 90000
 
@@ -15,7 +17,7 @@ const main = async () => {
     const coinTables = {}
 
     if (!balancesResponse.success) {
-      console.log('get balance error');
+      log.error('get balance error');
       return
     }
     for (let i = 0; i < balancesResponse.result.length; i++) {
@@ -32,7 +34,8 @@ const main = async () => {
         rate: 1e-6
       }
       const lendingResponse = await httpAgent.post({ path: 'spot_margin/offers', secret: config.ftx.apiSecret, apiKey: config.ftx.apiKey, body })
-      if (!lendingResponse.success) console.log(`update ${updateCoin} lending balance false!`);
+      if (!lendingResponse.success) log.info(`update ${updateCoin} lending balance false!`);
+      log.info(lendingResponse)
     }
   }, intervalTime);
 }
