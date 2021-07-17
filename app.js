@@ -6,13 +6,14 @@ const main = async () => {
   const config = await Utils.readConfig()
   const httpAgent = new HttpAgent()
   const log = new LoggerAdapter()
+  log.info('service start!!')
 
-  const intervalTime = 90000
+  const intervalTime = 3600000
 
   setInterval(async () => {
     const balancesResponse = await httpAgent.get({ path: 'wallet/balances', secret: config.ftx.apiSecret, apiKey: config.ftx.apiKey })
 
-    const updateCoins = ['BTC', 'DOGE', 'ASD', 'USD', 'USDT']
+    const updateCoins = ['BTC', 'ETH', 'DOGE', 'ASD', 'USD', 'USDT']
 
     const coinTables = {}
 
@@ -31,12 +32,14 @@ const main = async () => {
       const body = {
         coin: updateCoin,
         size: coinTables[updateCoin].total,
-        rate: 1e-6
+        rate: 0.0000001
       }
       const lendingResponse = await httpAgent.post({ path: 'spot_margin/offers', secret: config.ftx.apiSecret, apiKey: config.ftx.apiKey, body })
       if (!lendingResponse.success) log.info(`update ${updateCoin} lending balance false!`);
       log.info(lendingResponse)
     }
+
+    log.info('update lending balance success!!')
   }, intervalTime);
 }
 
