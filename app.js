@@ -1,11 +1,16 @@
 const Utils = require('./lib/Utils');
 const HttpAgent = require('./lib/HttpAgent');
 const LoggerAdapter = require('./lib/LoggerAdapter.js')
+const DB = require('./db/model')
+
 
 const main = async () => {
+  
   const config = await Utils.readConfig()
   const httpAgent = new HttpAgent()
   const log = new LoggerAdapter()
+  const dbInstance = new DB({ dbConfig: config.database, logger: log })
+  const db = await dbInstance.initialORM()
   log.info('service start!!')
 
   const intervalTime = 3600000

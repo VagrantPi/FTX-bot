@@ -1,3 +1,19 @@
 [ftx]
 apiKey = ""
 apiSecret = ""
+
+[database]
+protocol = "postgres"
+host = ""
+port = ""
+user = ""
+password = ""
+dbName = ""
+logging = false
+autoReconnect = true
+ormEnable = true
+  [database.dialectOptions]
+  connectTimeout = 3000
+
+  [database.pool]
+  max = 100
