@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Balance', {
   timestamp: {
     type: DataTypes.DATE,
     allowNull: false,
-  }
+  },
 }, {
   timestamps: false,
   tableName: 'Balance',
