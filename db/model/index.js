@@ -10,7 +10,6 @@ class DBAdapter {
     if (!DBAdapter.instance) {
       this.dbConfig = dbConfig;
       this.logger = logger;
-      this.dbInstance = null;
       DBAdapter.instance = this;
     }
     return DBAdapter.instance;
@@ -61,6 +60,10 @@ class DBAdapter {
           // eslint-disable-next-line no-console
           this.logger.log('\x1b[1m\x1b[32mDB   \x1b[0m\x1b[21m connect success');
           return db;
+        })
+        .catch((e) => {
+          this.logger.error('\x1b[1m\x1b[31mDB   \x1b[0m\x1b[21m \x1b[1m\x1b[31mconnect fails\x1b[0m\x1b[21m');
+          throw e;
         });
     } catch (e) {
       // eslint-disable-next-line no-console
