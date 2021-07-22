@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Balance', {
     type: DataTypes.STRING(10),
     allowNull: false,
   },
+  balance: {
+    type: DataTypes.STRING(),
+    allowNull: false,
+  },
   timestamp: {
     type: DataTypes.DATE,
     allowNull: false,
