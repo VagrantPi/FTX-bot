@@ -13,14 +13,15 @@ const main = async () => {
   const httpAgent = new HttpAgent();
   const dbInstance = new DB({ dbConfig: config.database, logger });
   const db = await dbInstance.initialORM();
+  const lendingBot = new LendingBot({
+    config, logger, db, httpAgent, updateCoins,
+  });
+
   const webServer = new WebServer({
     config, logger, db, httpAgent, updateCoins,
   });
   logger.log('service start!!');
 
-  const lendingBot = new LendingBot({
-    config, logger, db, httpAgent, updateCoins,
-  });
   await lendingBot.start();
 
   await webServer.start();
