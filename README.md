@@ -21,7 +21,23 @@ cp default.config.toml config.toml
 vim config.toml
 ```
 
-### Step 4. 啟動
+### Step 4. Line Notify
+
+登入服務
+
+https://notify-bot.line.me/my/services/
+
+發行存取權杖
+
+https://notify-bot.line.me/my/
+
+更新設定檔
+
+```bash
+vim config.toml
+```
+
+### Step 5. 啟動
 
 ```bash
 npm start
