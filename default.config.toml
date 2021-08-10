@@ -1,3 +1,6 @@
+[base]
+updateCoins = ['USD', 'USDT']
+
 [ftx]
 apiKey = ""
 apiSecret = ""
